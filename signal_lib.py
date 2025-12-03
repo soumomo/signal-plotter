@@ -87,7 +87,7 @@ class SingularityFunction:
                 elif func_type == 'ramp':
                     term_val *= (arg * step)
                 elif func_type == 'parabola':
-                    term_val *= ((arg**2) * step)
+                    term_val *= (0.5 * (arg**2) * step)
             
             val += term_val
         return val
@@ -115,7 +115,7 @@ class SingularityFunction:
                 elif func_type == 'ramp':
                     term_y *= (arg * mask)
                 elif func_type == 'parabola':
-                    term_y *= ((arg**2) * mask)
+                    term_y *= (0.5 * (arg**2) * mask)
             
             y += term_y
                 
