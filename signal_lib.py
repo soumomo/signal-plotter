@@ -339,3 +339,27 @@ def delta(arg):
     sf = SingularityFunction()
     sf.impulses.append({'mag': 1.0, 't0': t0, 'k': k})
     return sf
+
+def rect(arg):
+    """
+    Rectangular (boxcar) function.
+    rect(t) creates a pulse of width 1 centered at t=0 (from -0.5 to 0.5).
+    rect(t-a) creates a pulse of width 1 centered at t=a (from a-0.5 to a+0.5).
+    
+    Mathematically: rect(t) = u(t+0.5) - u(t-0.5)
+    """
+    k, t0 = _extract_params(arg)
+    # rect(k*t - t0) = u(k*t - t0 + 0.5) - u(k*t - t0 - 0.5)
+    # Which means u(k*t - (t0 - 0.5)) - u(k*t - (t0 + 0.5))
+    sf = SingularityFunction()
+    # First term: u(k*t - (t0 - 0.5))
+    sf.continuous_terms.append({
+        'mag': 1.0, 
+        'components': [{'type': 'step', 't0': t0 - 0.5, 'k': k}]
+    })
+    # Second term: -u(k*t - (t0 + 0.5))
+    sf.continuous_terms.append({
+        'mag': -1.0, 
+        'components': [{'type': 'step', 't0': t0 + 0.5, 'k': k}]
+    })
+    return sf
