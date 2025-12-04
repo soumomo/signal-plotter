@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
-from signal_lib import SingularityFunction, TimeVariable, u, r, p, delta, t
+from signal_lib import SingularityFunction, TimeVariable, u, r, p, delta, rect, t
 
 st.set_page_config(page_title="Signal Plotter", layout="wide")
 
@@ -22,21 +22,23 @@ with st.sidebar:
     - `r(t)`: Unit Ramp
     - `p(t)`: Unit Parabola
     - `delta(t)`: Unit Impulse
+    - `rect(t)`: Rectangular Pulse (width 1)
     
     **Examples:**
     - `u(t)`
-    - `u(t) - u(t-2)` (Rect)
+    - `rect(t)` (Pulse from -0.5 to 0.5)
+    - `rect(t-2)` (Pulse from 1.5 to 2.5)
     - `3*r(t) - 3*r(t-2) - 6*u(t-2)`
     """)
 
 # Main Area
-expression = st.text_input("Enter Signal Expression (function of 't')", value="u(t) - u(t-2)")
+expression = st.text_input("Enter Signal Expression (function of 't')", value="rect(t)")
 
 if expression:
     try:
         # Safe evaluation environment
         safe_dict = {
-            'u': u, 'r': r, 'p': p, 'delta': delta, 't': t,
+            'u': u, 'r': r, 'p': p, 'delta': delta, 'rect': rect, 't': t,
             'SingularityFunction': SingularityFunction,
             'np': np
         }

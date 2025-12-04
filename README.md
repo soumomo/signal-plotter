@@ -9,6 +9,7 @@ A web-based tool for plotting standard singularity functions (`u(t)`, `r(t)`, `d
   - `r(t)`: Unit Ramp
   - `p(t)`: Unit Parabola
   - `delta(t)`: Unit Impulse
+  - `rect(t)`: Rectangular/Boxcar Pulse (width 1, centered at origin)
 - **Complex Expressions**: Combine signals using standard math operators (e.g., `3*u(t) - 2*r(t-2)`).
 - **Interactive Plotting**: Adjust time range and resolution dynamically.
 - **Math-Correct**: Uses a custom `SingularityFunction` class for accurate evaluation and plotting.
@@ -38,6 +39,8 @@ The app will open in your browser. Enter a signal expression in the text box (e.
 
 ## Examples
 
-- **Rectangular Pulse**: `u(t) - u(t-1)`
+- **Rectangular Pulse**: `rect(t)` or `u(t) - u(t-1)`
+- **Shifted Rectangular Pulse**: `rect(t-2)` (centered at t=2)
+- **Scaled Rectangular Pulse**: `3*rect(t)`
 - **Triangular Pulse**: `r(t) - 2*r(t-1) + r(t-2)`
 - **Impulse Train**: `delta(t) + delta(t-1) + delta(t-2)`
